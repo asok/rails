@@ -59,5 +59,11 @@ if ActiveRecord::Base.connection.supports_virtual_columns?
       assert_match(/t\.virtual\s+"name_length",\s+type: :integer,\s+as: "(?:octet_length|length)\(`name`\)",\s+stored: true$/i, output)
       assert_match(/t\.virtual\s+"name_octet_length",\s+type: :integer,\s+as: "(?:octet_length|length)\(`name`\)",\s+stored: true$/i, output)
     end
+
+    def test_record_dup_with_dirty_virtual_column
+      record = VirtualColumn.last
+      record = record.dup
+      assert record.save
+    end
   end
 end
