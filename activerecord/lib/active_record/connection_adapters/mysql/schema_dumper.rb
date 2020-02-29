@@ -79,7 +79,7 @@ module ActiveRecord
                     " WHERE table_schema = #{scope[:schema]}" \
                     "   AND table_name = #{scope[:name]}" \
                     "   AND column_name = #{column_name}"
-              @connection.query_value(sql, "SCHEMA").inspect
+              @connection.query_value(sql, "SCHEMA").inspect.gsub(%q{\\\\'}) { %q{\'} }
             end
           end
       end
